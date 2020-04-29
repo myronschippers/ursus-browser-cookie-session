@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import { setCookie, getCookie } from '../../services/cookies';
+import axios from 'axios';
+// import { setCookie, getCookie } from '../../services/cookies';
 
 class App extends Component {
     state = {
@@ -9,14 +10,39 @@ class App extends Component {
         isEditable: true,
     }
 
-    componentDidMount() {
-        const favoriteCreature = getCookie('favoriteCreature');
-        console.log(favoriteCreature);
-        this.setState({
-            favoriteCreature,
-        });
+    getCreature() {
+        axios.get('/api/creature')
+            .then((response) => {
+                this.setState({
+                    favoriteCreature: response.data.fantasticCreature,
+                });
+            })
+            .catch((err) => {
+                console.warn(err);
+            });
     }
-    
+
+    postCreature(creatureData) {
+        axios.post('/api/creature', {
+            fantasticCreature: creatureData
+        })
+            .then((response) => {
+               this.getCreature();
+            })
+            .catch((err) => {
+                console.warn(err);
+            });
+    }
+
+    componentDidMount() {
+        // const favoriteCreature = getCookie('favoriteCreature');
+
+        // this.setState({
+        //     favoriteCreature,
+        // });
+        this.getCreature();
+    }
+
     changeFavoriteAnimal = (event) => {
         this.setState({
             enteredCreature: event.target.value,
@@ -24,7 +50,9 @@ class App extends Component {
     }
 
     saveCreature = (event) => {
-        setCookie('favoriteCreature', this.state.enteredCreature); 
+        // setCookie('favoriteCreature', this.state.enteredCreature);
+        this.postCreature(this.state.enteredCreature);
+
         this.setState({
             favoriteCreature: this.state.enteredCreature,
             enteredCreature: '',
