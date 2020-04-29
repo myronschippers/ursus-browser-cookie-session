@@ -1,0 +1,32 @@
+.headerBar {
+    padding: 8px 16px;
+    margin: 0 0 26px;
+    background-color: royalblue;
+    color: #ffffff;
+    text-align: center;
+    border: 1px solid rgb(0,0,0,0.3);
+    box-shadow: 0 1px 6px rgb(0,0,0,0.3);
+}
+
+.headerBar h1,
+.headerBar h2,
+.headerBar h3,
+.headerBar h4,
+.headerBar h5,
+.headerBar h6 {
+    margin: 0 0 8px;
+}
+
+.container {
+    max-width: 600px;
+    padding: 16px;
+    margin: 0 auto;
+    border: 1px solid rgb(0,0,0,0.1);
+    background-color: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgb(0,0,0,0.1);
+}
+
+.formField > * + * {
+    margin: 8px 0 0;
+}
